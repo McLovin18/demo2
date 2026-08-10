@@ -27,12 +27,12 @@ const IconWhatsApp = () => (
 );
 
 const socialLinks = [
-  { href: "https://www.instagram.com/garloec/", label: "Instagram", Icon: IconInstagram },
+  { href: "https://www.instagram.com/accesorios_terciopelo/", label: "Instagram", Icon: IconInstagram },
 ];
 
 // 👉 Información del negocio
-const WHATSAPP_NUMBER = "593998701934"; // solo números, con código de país, sin '+' ni espacios
-const WHATSAPP_DISPLAY = "+593 99 870 1934"; // como se muestra al usuario
+const WHATSAPP_NUMBER = "573202689543"; // solo números, con código de país, sin '+' ni espacios
+const WHATSAPP_DISPLAY = "+57 320 268 9543"; // como se muestra al usuario
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
             {/* Columna 1: Información de la tienda */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
               <span className="text-base font-bold tracking-wide text-white">
-                Garloec
+                Terciopelo
               </span>
 
               {instagramEnabled && instagramFollowers !== null && instagramFollowers > 0 && (
@@ -93,11 +93,11 @@ const Footer: React.FC = () => {
               )}
 
               <div className="text-xs text-white/60 mt-1 max-w-[220px]">
-                <p>Fabricantes de Ropa, Calzado y Accesorios</p>
-                <p>La fábrica, marca y tienda de ropa más bacana del Ecuador</p>
+                <p>Complementa tu outfit con Terciopelo</p>
+                <p>Personaliza • Diseños Únicos</p>
                 <p className="flex items-center gap-1 justify-center md:justify-start mt-0.5">
                   <IconLocation />
-                  Tiendas en Ambato y Esmeraldas
+                  Medellín · Envíos a todo lugar
                 </p>
               </div>
             </div>
@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
                     <li key={label}>
                       <a
                         href={href}
-                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-red-600 hover:border-red-600"
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#C2477D] hover:border-[#C2477D]"
                         target="_blank"
                         rel="noreferrer"
                         title={label}
@@ -143,19 +143,11 @@ const Footer: React.FC = () => {
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-xl text-white/70 hover:text-red-500 transition-colors"
+                className="flex items-center gap-2 text-xl text-white/70 hover:text-[#C2477D] transition-colors"
                 onClick={() => trackLinkClick().catch(console.error)}
               >
                 <span>{WHATSAPP_DISPLAY}</span>
                 <IconWhatsApp />
-              </a>
-
-              <a
-                href="/reviews"
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors"
-                onClick={() => trackLinkClick().catch(console.error)}
-              >
-                Reseñas
               </a>
 
             </div>
@@ -169,19 +161,19 @@ const Footer: React.FC = () => {
         {/* Copyright row */}
         <div className={styles.ftCopyRow}>
           <p className="text-xs text-white/50">
-            © {new Date().getFullYear()} Garloec. Todos los derechos reservados.
+            © {new Date().getFullYear()} Terciopelo. Todos los derechos reservados.
           </p>
           <div className={styles.ftCopyRight}>
             <div className="flex items-center gap-1.5 text-xs text-white/60">
-              <div className="w-1.5 h-1.5 rounded-full bg-red-600" />
-              Hecho en Ecuador
+              <div className="w-1.5 h-1.5 rounded-full bg-[#C2477D]" />
+              Hecho en Colombia
             </div>
 
             <a
               href="https://www.instagram.com/hector.cobena/"
               target="_blank"
               rel="noreferrer"
-              className="text-xs text-white/50 hover:text-red-500 transition-colors"
+              className="text-xs text-white/50 hover:text-[#C2477D] transition-colors"
               onClick={() => trackLinkClick().catch(console.error)}
             >
               Desarrollado por Héctor Cobeña

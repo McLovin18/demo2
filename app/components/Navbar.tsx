@@ -204,7 +204,7 @@ return (
               className="hidden lg:flex items-center leading-none"
             >
               <Image
-                src="/logo_garlo.png"
+                src="/logo_demo2.png"
                 width={190}
                 height={60}
                 priority
@@ -220,7 +220,7 @@ return (
               className="pointer-events-auto flex flex-col items-center leading-none"
             >
               <Image
-                src="/logo_garlo.png"
+                src="/logo_demo2.png"
                 alt="Art Design MAKR"
                 width={180}
                 height={62}

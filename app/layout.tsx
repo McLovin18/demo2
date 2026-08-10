@@ -17,9 +17,9 @@ export const revalidate = 1800;
 // Cambiar cuando tengas el dominio definitivo
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://garloec.com";
+  "https://terciopeloaccesorios.com";
 
-const SITE_NAME = "Garloec | Ropa, Calzado y Accesorios Ecuador";
+const SITE_NAME = "Terciopelo | Accesorios con Estilo en Medellín";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -30,26 +30,26 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "Garloec | Fabricantes de Ropa, Calzado y Accesorios en Ecuador",
-    template: "%s | Garloec",
+    default: "Terciopelo | Accesorios con Estilo en Medellín, Colombia",
+    template: "%s | Terciopelo",
   },
 
   description:
-    "La fábrica, marca y tienda de ropa más bacana del Ecuador. Ropa, calzado y accesorios con tiendas en Ambato y Esmeraldas, y envíos a todo el país.",
+    "Complementa tu outfit con Terciopelo. Accesorios personalizados y diseños únicos, compra 100% segura, con envíos a todo lugar desde Medellín.",
 
   keywords: [
-    "ropa Ecuador",
-    "fábrica de ropa Ecuador",
-    "calzado Ecuador",
-    "accesorios Ecuador",
-    "ropa Ambato",
-    "ropa Esmeraldas",
-    "tienda de ropa Ecuador",
-    "Garloec",
-    "moda ecuatoriana",
-    "ropa nacional Ecuador",
-    "zapatos Ecuador",
-    "ropa al por mayor Ecuador",
+    "accesorios Medellín",
+    "accesorios personalizados Colombia",
+    "joyería de moda Colombia",
+    "accesorios mujer Medellín",
+    "diseños únicos accesorios",
+    "Terciopelo accesorios",
+    "compra segura accesorios Colombia",
+    "anillos y accesorios personalizados",
+    "accesorios con estilo",
+    "tienda de accesorios Medellín",
+    "envíos accesorios Colombia",
+    "ventas al detal accesorios",
   ],
 
   creator: SITE_NAME,
@@ -68,21 +68,21 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    locale: "es_EC",
+    locale: "es_CO",
     url: SITE_URL,
     siteName: SITE_NAME,
 
-    title: "Garloec | Ropa, Calzado y Accesorios",
+    title: "Terciopelo | Accesorios con Estilo",
 
     description:
-      "La fábrica, marca y tienda de ropa más bacana del Ecuador. Tiendas en Ambato y Esmeraldas, con envíos a todo el país.",
+      "Complementa tu outfit con Terciopelo. Accesorios personalizados y diseños únicos, con envíos a todo lugar desde Medellín.",
 
     images: [
       {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Garloec - Ropa, calzado y accesorios",
+        alt: "Terciopelo - Accesorios con estilo",
       },
     ],
   },
@@ -90,10 +90,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Garloec",
+    title: "Terciopelo",
 
     description:
-      "La fábrica, marca y tienda de ropa más bacana del Ecuador. Tiendas en Ambato y Esmeraldas.",
+      "Complementa tu outfit con Terciopelo. Accesorios personalizados con envíos a todo lugar desde Medellín.",
 
     images: [`${SITE_URL}/twitter-image.jpg`],
   },
@@ -125,7 +125,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
   },
 
-  category: "Ropa y Accesorios",
+  category: "Accesorios y Joyería",
 };
 
 export const viewport: Viewport = {
