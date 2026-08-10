@@ -455,9 +455,6 @@ export default function CartPage() {
                       <span className="material-icons-round text-base">account_balance</span>
                       Pagar por Transferencia Bancaria
                     </button>
-                    <p className="text-[11px] text-center text-white/40">
-                      Reserva tu pedido con un 30% inicial. El resto se coordina por WhatsApp.
-                    </p>
                   </div>
                 </div>
               </div>
