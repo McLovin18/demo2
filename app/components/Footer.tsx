@@ -13,7 +13,6 @@ const IconInstagram = () => (
   </svg>
 );
 
-
 const IconLocation = () => (
   <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
     <path d="M12 2C7.589 2 4 5.589 4 9.995 4 15.991 12 22 12 22s8-6.009 8-12.005C20 5.589 16.411 2 12 2zm0 10.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
@@ -27,12 +26,12 @@ const IconWhatsApp = () => (
 );
 
 const socialLinks = [
-  { href: "https://www.instagram.com/accesorios_terciopelo/", label: "Instagram", Icon: IconInstagram },
+  { href: "https://www.instagram.com/muebles_ymaderas/", label: "Instagram", Icon: IconInstagram },
 ];
 
 // 👉 Información del negocio
-const WHATSAPP_NUMBER = "573202689543"; // solo números, con código de país, sin '+' ni espacios
-const WHATSAPP_DISPLAY = "+57 320 268 9543"; // como se muestra al usuario
+const WHATSAPP_NUMBER = "593993031812"; // solo números, con código de país, sin '+' ni espacios
+const WHATSAPP_DISPLAY = "+593 99 303 1812"; // como se muestra al usuario
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -80,7 +79,7 @@ const Footer: React.FC = () => {
             {/* Columna 1: Información de la tienda */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
               <span className="text-base font-bold tracking-wide text-white">
-                Terciopelo
+                Muebles &amp; Maderas
               </span>
 
               {instagramEnabled && instagramFollowers !== null && instagramFollowers > 0 && (
@@ -93,11 +92,11 @@ const Footer: React.FC = () => {
               )}
 
               <div className="text-xs text-white/60 mt-1 max-w-[220px]">
-                <p>Complementa tu outfit con Terciopelo</p>
-                <p>Personaliza • Diseños Únicos</p>
+                <p>100% madera sólida</p>
+                <p>Fabricantes • Hogar, Hoteles y Proyectos</p>
                 <p className="flex items-center gap-1 justify-center md:justify-start mt-0.5">
                   <IconLocation />
-                  Medellín · Envíos a todo lugar
+                  La Libertad, Santa Elena · Envíos a todo el Ecuador
                 </p>
               </div>
             </div>
@@ -117,7 +116,7 @@ const Footer: React.FC = () => {
                     <li key={label}>
                       <a
                         href={href}
-                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#C2477D] hover:border-[#C2477D]"
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#8C5A3C] hover:border-[#8C5A3C]"
                         target="_blank"
                         rel="noreferrer"
                         title={label}
@@ -143,13 +142,20 @@ const Footer: React.FC = () => {
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-xl text-white/70 hover:text-[#C2477D] transition-colors"
+                className="flex items-center gap-2 text-xl text-white/70 hover:text-[#8C5A3C] transition-colors"
                 onClick={() => trackLinkClick().catch(console.error)}
               >
                 <span>{WHATSAPP_DISPLAY}</span>
                 <IconWhatsApp />
               </a>
 
+              <a
+                href="mailto:ventas@mueblesymaderas.com"
+                className="text-sm text-white/60 hover:text-[#8C5A3C] transition-colors"
+                onClick={() => trackLinkClick().catch(console.error)}
+              >
+                ventas@mueblesymaderas.com
+              </a>
             </div>
 
           </div>
@@ -161,19 +167,19 @@ const Footer: React.FC = () => {
         {/* Copyright row */}
         <div className={styles.ftCopyRow}>
           <p className="text-xs text-white/50">
-            © {new Date().getFullYear()} Terciopelo. Todos los derechos reservados.
+            © {new Date().getFullYear()} Muebles &amp; Maderas. Todos los derechos reservados.
           </p>
           <div className={styles.ftCopyRight}>
             <div className="flex items-center gap-1.5 text-xs text-white/60">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C2477D]" />
-              Hecho en Colombia
+              <div className="w-1.5 h-1.5 rounded-full bg-[#8C5A3C]" />
+              Hecho en Ecuador
             </div>
 
             <a
               href="https://www.instagram.com/hector.cobena/"
               target="_blank"
               rel="noreferrer"
-              className="text-xs text-white/50 hover:text-[#C2477D] transition-colors"
+              className="text-xs text-white/50 hover:text-[#8C5A3C] transition-colors"
               onClick={() => trackLinkClick().catch(console.error)}
             >
               Desarrollado por Héctor Cobeña

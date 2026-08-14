@@ -17,9 +17,9 @@ export const revalidate = 1800;
 // Cambiar cuando tengas el dominio definitivo
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://terciopeloaccesorios.com";
+  "https://mueblesymaderas.com";
 
-const SITE_NAME = "Terciopelo | Accesorios con Estilo en Medellín";
+const SITE_NAME = "Muebles & Maderas | Fabricantes de Muebles en Santa Elena, Ecuador";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -30,26 +30,26 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "Terciopelo | Accesorios con Estilo en Medellín, Colombia",
-    template: "%s | Terciopelo",
+    default: "Muebles & Maderas | Fabricantes de Muebles en La Libertad, Santa Elena",
+    template: "%s | Muebles & Maderas",
   },
 
   description:
-    "Complementa tu outfit con Terciopelo. Accesorios personalizados y diseños únicos, compra 100% segura, con envíos a todo lugar desde Medellín.",
+    "Muebles fabricados en 100% madera sólida en La Libertad, Santa Elena. Muebles para hogar, hoteles y proyectos, con envíos a todo el Ecuador.",
 
   keywords: [
-    "accesorios Medellín",
-    "accesorios personalizados Colombia",
-    "joyería de moda Colombia",
-    "accesorios mujer Medellín",
-    "diseños únicos accesorios",
-    "Terciopelo accesorios",
-    "compra segura accesorios Colombia",
-    "anillos y accesorios personalizados",
-    "accesorios con estilo",
-    "tienda de accesorios Medellín",
-    "envíos accesorios Colombia",
-    "ventas al detal accesorios",
+    "muebles Santa Elena",
+    "muebles La Libertad Ecuador",
+    "muebles de madera sólida",
+    "fabricantes de muebles Ecuador",
+    "muebles para hogar Ecuador",
+    "muebles para hoteles Ecuador",
+    "muebles a medida Ecuador",
+    "muebles y maderas",
+    "carpintería Santa Elena",
+    "muebles proyectos Ecuador",
+    "envíos muebles Ecuador",
+    "muebles de calidad Ecuador",
   ],
 
   creator: SITE_NAME,
@@ -68,21 +68,21 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    locale: "es_CO",
+    locale: "es_EC",
     url: SITE_URL,
     siteName: SITE_NAME,
 
-    title: "Terciopelo | Accesorios con Estilo",
+    title: "Muebles & Maderas | Tu hogar natural",
 
     description:
-      "Complementa tu outfit con Terciopelo. Accesorios personalizados y diseños únicos, con envíos a todo lugar desde Medellín.",
+      "Muebles fabricados en 100% madera sólida en La Libertad, Santa Elena. Muebles para hogar, hoteles y proyectos, con envíos a todo el Ecuador.",
 
     images: [
       {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Terciopelo - Accesorios con estilo",
+        alt: "Muebles & Maderas - Muebles de madera sólida",
       },
     ],
   },
@@ -90,10 +90,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Terciopelo",
+    title: "Muebles & Maderas",
 
     description:
-      "Complementa tu outfit con Terciopelo. Accesorios personalizados con envíos a todo lugar desde Medellín.",
+      "Muebles fabricados en 100% madera sólida en La Libertad, Santa Elena, con envíos a todo el Ecuador.",
 
     images: [`${SITE_URL}/twitter-image.jpg`],
   },
@@ -125,7 +125,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
   },
 
-  category: "Accesorios y Joyería",
+  category: "Muebles y Hogar",
 };
 
 export const viewport: Viewport = {
@@ -143,7 +143,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={sourceSerif4.variable}>
       <head>
-        {/* Google Analytics */}
+        {/* Google Analytics - reemplazar con el ID de este cliente */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-K1Q0MYDSKF"
