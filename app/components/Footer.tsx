@@ -26,12 +26,12 @@ const IconWhatsApp = () => (
 );
 
 const socialLinks = [
-  { href: "https://www.instagram.com/muebles_ymaderas/", label: "Instagram", Icon: IconInstagram },
+  { href: "https://www.instagram.com/glowkathe_ec/", label: "Instagram", Icon: IconInstagram },
 ];
 
 // 👉 Información del negocio
-const WHATSAPP_NUMBER = "593993031812"; // solo números, con código de país, sin '+' ni espacios
-const WHATSAPP_DISPLAY = "+593 99 303 1812"; // como se muestra al usuario
+const WHATSAPP_NUMBER = "593994775249"; // solo números, con código de país, sin '+' ni espacios
+const WHATSAPP_DISPLAY = "+593 99 477 5249"; // como se muestra al usuario
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
             {/* Columna 1: Información de la tienda */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
               <span className="text-base font-bold tracking-wide text-white">
-                Muebles &amp; Maderas
+                Kathe Girl
               </span>
 
               {instagramEnabled && instagramFollowers !== null && instagramFollowers > 0 && (
@@ -92,11 +92,11 @@ const Footer: React.FC = () => {
               )}
 
               <div className="text-xs text-white/60 mt-1 max-w-[220px]">
-                <p>100% madera sólida</p>
-                <p>Fabricantes • Hogar, Hoteles y Proyectos</p>
+                <p>Fabricantes directos · Mayor y detal</p>
+                <p>Te ayudo a armar tu outfit</p>
                 <p className="flex items-center gap-1 justify-center md:justify-start mt-0.5">
                   <IconLocation />
-                  La Libertad, Santa Elena · Envíos a todo el Ecuador
+                  Ecuador · Envíos a todo el país
                 </p>
               </div>
             </div>
@@ -149,13 +149,6 @@ const Footer: React.FC = () => {
                 <IconWhatsApp />
               </a>
 
-              <a
-                href="mailto:ventas@mueblesymaderas.com"
-                className="text-sm text-white/60 hover:text-[#8C5A3C] transition-colors"
-                onClick={() => trackLinkClick().catch(console.error)}
-              >
-                ventas@mueblesymaderas.com
-              </a>
             </div>
 
           </div>
@@ -167,7 +160,7 @@ const Footer: React.FC = () => {
         {/* Copyright row */}
         <div className={styles.ftCopyRow}>
           <p className="text-xs text-white/50">
-            © {new Date().getFullYear()} Muebles &amp; Maderas. Todos los derechos reservados.
+            © {new Date().getFullYear()} Kathe Girl. Todos los derechos reservados.
           </p>
           <div className={styles.ftCopyRight}>
             <div className="flex items-center gap-1.5 text-xs text-white/60">

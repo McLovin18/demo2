@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { obtenerBodegas } from "../lib/bodegas-db";
 import { getSnapshotPricing } from "../lib/pricing";
+import { calcularPrecioMayorista, obtenerPrecioConDescuento } from "../lib/productos-db";
 import { useUser } from "../context/UserContext";
 import BottomBarPublic from "../components/BottomBarPublic";
 import { obtenerAtributos } from "../lib/atributos-db";
@@ -72,8 +73,25 @@ export default function CartPage() {
   const { trackPurchaseWhatsApp, trackPurchaseTransfer } = useTracking();
 
   const calcularPrecioData = (p: any) => {
-    const { basePrice, discount, hasDiscount, fakeOldPrice, finalPrice } = getSnapshotPricing(p);
-    return { basePrice, discount, hasDiscount, fakeOldPrice, finalPrice };
+    // Aplicar precio mayorista si el producto lo tiene
+    const precioMayorista = calcularPrecioMayorista(p, p.cantidad || 1);
+    const precioConDescuento = obtenerPrecioConDescuento(
+      { ...p, precio: precioMayorista },
+      p.cantidad || 1
+    );
+    
+    const { basePrice, discount, hasDiscount, fakeOldPrice, finalPrice } = getSnapshotPricing({
+      ...p,
+      precio: precioMayorista
+    });
+    
+    return { 
+      basePrice, 
+      discount, 
+      hasDiscount, 
+      fakeOldPrice, 
+      finalPrice: precioConDescuento 
+    };
   };
 
   useEffect(() => {
@@ -189,7 +207,7 @@ export default function CartPage() {
     // Si se abre después de un await, el navegador lo bloquea sin avisar.
     const whatsappWindow = window.open("", "_blank");
 
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "593993031812";
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "593994775249";
     const message = await generateWhatsAppMessage();
     const url = `https://wa.me/${whatsappNumber}?text=${message}`;
 
@@ -236,7 +254,19 @@ export default function CartPage() {
       }
       setError("");
       removeCarrito(id);
-      addCarrito({ ...prod, cantidad });
+      
+      // Recalcular precio mayorista según la nueva cantidad
+      const nuevoPrecioMayorista = calcularPrecioMayorista(prod, cantidad);
+      const nuevoPrecioConDescuento = obtenerPrecioConDescuento(
+        { ...prod, precio: nuevoPrecioMayorista },
+        cantidad
+      );
+      
+      addCarrito({ 
+        ...prod, 
+        cantidad,
+        precioUnitario: nuevoPrecioConDescuento
+      });
     }
   };
 

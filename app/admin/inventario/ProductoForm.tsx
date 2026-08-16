@@ -56,6 +56,12 @@ type Producto = {
     tipo: string;
     afectaPrecio?: boolean;
   }[];
+  esMayorista?: boolean;
+  preciosMayoristas?: {
+    minQuantity: number;
+    maxQuantity?: number;
+    price: number;
+  }[];
 };
 
 type ProductoFormProps = {
@@ -102,6 +108,12 @@ type DraftFields = {
     nombre: string;
     tipo: string;
     afectaPrecio?: boolean;
+  }[];
+  esMayorista: boolean;
+  preciosMayoristas: {
+    minQuantity: number;
+    maxQuantity?: number;
+    price: number;
   }[];
 };
 
@@ -190,6 +202,12 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
     tipo: string;
     afectaPrecio?: boolean;
   }[]>(initialData?.camposPersonalizacion || []);
+  const [esMayorista, setEsMayorista] = useState<boolean>(Boolean(initialData?.esMayorista));
+  const [preciosMayoristas, setPreciosMayoristas] = useState<{
+    minQuantity: number;
+    maxQuantity?: number;
+    price: number;
+  }[]>(initialData?.preciosMayoristas || []);
   const [draftDisponible, setDraftDisponible] = useState(false);
 
   // ── Manejo de URLs de imagen sin fugas de memoria ──
@@ -331,6 +349,7 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
     const draft: DraftFields = {
       nombre, sku, stock, precio, descuento, categoria, subcategoria, subsubcategoria,
       descripcion, caracteristicas, tieneMarca, marca, bodegaId, personalizado, camposPersonalizacion,
+      esMayorista, preciosMayoristas,
     };
     const timeoutId = window.setTimeout(() => {
       try {
@@ -340,7 +359,7 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
       }
     }, 500); // pequeño debounce para no escribir en cada tecla
     return () => window.clearTimeout(timeoutId);
-  }, [isEdit, nombre, sku, stock, precio, descuento, categoria, subcategoria, subsubcategoria, descripcion, caracteristicas, tieneMarca, marca, bodegaId, personalizado, camposPersonalizacion]);
+  }, [isEdit, nombre, sku, stock, precio, descuento, categoria, subcategoria, subsubcategoria, descripcion, caracteristicas, tieneMarca, marca, bodegaId, personalizado, camposPersonalizacion, esMayorista, preciosMayoristas]);
 
   function restaurarDraft() {
     try {
@@ -362,6 +381,8 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
       setBodegaId(draft.bodegaId || "");
       setPersonalizado(Boolean(draft.personalizado));
       setCamposPersonalizacion(draft.camposPersonalizacion || []);
+      setEsMayorista(Boolean(draft.esMayorista));
+      setPreciosMayoristas(draft.preciosMayoristas || []);
     } catch (err) {
       console.error("No se pudo restaurar el borrador", err);
     } finally {
@@ -1281,6 +1302,99 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
           <input className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base font-semibold text-slate-400 outline-none" type="text" value="Se aplicará al precio base al comprar" readOnly />
         </label>
       </div>
+
+      <div className="mt-8 border-t border-slate-200 pt-6">
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={esMayorista}
+            onChange={(e) => setEsMayorista(e.target.checked)}
+            className="h-5 w-5 rounded border-slate-300 text-rose-500 focus:ring-rose-500"
+          />
+          <span className="text-base font-semibold text-slate-700">Producto mayorista</span>
+        </label>
+        <p className="mt-2 text-sm text-slate-500">Activa esta opción para ofrecer precios especiales por cantidad (compras al por mayor).</p>
+      </div>
+
+      {esMayorista && (
+        <div className="mt-6 space-y-4">
+          <div className="flex items-center justify-between">
+            <h4 className="text-lg font-semibold text-slate-800">Rangos de precios mayoristas</h4>
+            <button
+              type="button"
+              onClick={() => setPreciosMayoristas([...preciosMayoristas, { minQuantity: 1, price: Number(precio) }])}
+              className="rounded-xl bg-rose-500 px-4 py-2 text-sm font-semibold text-white hover:bg-rose-600 transition"
+            >
+              + Agregar rango
+            </button>
+          </div>
+          
+          {preciosMayoristas.map((rango, index) => (
+            <div key={index} className="grid gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-4">
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">Cantidad mínima</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={rango.minQuantity}
+                  onChange={(e) => {
+                    const newRanges = [...preciosMayoristas];
+                    newRanges[index].minQuantity = Math.max(1, Number(e.target.value) || 1);
+                    setPreciosMayoristas(newRanges);
+                  }}
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">Cantidad máxima</label>
+                <input
+                  type="number"
+                  min={rango.minQuantity + 1}
+                  value={rango.maxQuantity || ""}
+                  onChange={(e) => {
+                    const newRanges = [...preciosMayoristas];
+                    const val = e.target.value;
+                    newRanges[index].maxQuantity = val === "" ? undefined : Math.max(rango.minQuantity + 1, Number(val) || rango.minQuantity + 1);
+                    setPreciosMayoristas(newRanges);
+                  }}
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                  placeholder="En adelante"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">Precio especial</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={rango.price}
+                  onChange={(e) => {
+                    const newRanges = [...preciosMayoristas];
+                    newRanges[index].price = Number(e.target.value) || 0;
+                    setPreciosMayoristas(newRanges);
+                  }}
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                  required
+                />
+              </div>
+              <div className="flex items-end">
+                <button
+                  type="button"
+                  onClick={() => setPreciosMayoristas(preciosMayoristas.filter((_, i) => i !== index))}
+                  className="w-full rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-100 transition"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {preciosMayoristas.length === 0 && (
+            <p className="text-sm text-slate-500 italic">No hay rangos configurados. Agrega al menos uno para activar precios mayoristas.</p>
+          )}
+        </div>
+      )}
     </section>
   );
 
@@ -1455,7 +1569,9 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
                 afectaPrecio: Boolean(c.afectaPrecio),
                 tipo: c.afectaPrecio ? "texto" : c.tipo,
               }))
-          : undefined
+          : undefined,
+        esMayorista,
+        preciosMayoristas: esMayorista && preciosMayoristas.length > 0 ? preciosMayoristas : undefined
       });
 
       // Se guardó con éxito: ya no hace falta el borrador
@@ -1482,6 +1598,8 @@ export default function ProductoForm({ initialData = null, onSave, onCancel }: P
         setDescripcion("");
         setCaracteristicas([""]);
         setCategoryPathChanged(false);
+        setEsMayorista(false);
+        setPreciosMayoristas([]);
       }
     } finally {
       setLoading(false);

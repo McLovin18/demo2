@@ -1,6 +1,6 @@
 "use client";
 
-import { obtenerProductoPorId, obtenerProductosPorCategoria, obtenerProductosPorSubcategoria, obtenerProductosPorSubsubcategoria } from "../lib/productos-db";
+import { obtenerProductoPorId, obtenerProductosPorCategoria, obtenerProductosPorSubcategoria, obtenerProductosPorSubsubcategoria, calcularPrecioMayorista, obtenerPrecioConDescuento } from "../lib/productos-db";
 import { obtenerAtributos } from "../lib/atributos-db";
 import { Loading3DIcon } from "../components/Loading3DIcon";
 import VariationsManager from "../components/VariationsManager";
@@ -271,9 +271,12 @@ export default function ProductDetailPage({ params }) {
   producto.categoria === VISUAL_ONLY_CATEGORY_ID;
   const imageContainerWidthClass = isEnsamblesProduct ? "md:w-[60%]" : "md:w-[44%]";
 
-  // Obtener precio base - soportar variaciones dinámicas
+  // Obtener precio base - soportar variaciones dinámicas y precios mayoristas
   const variantBasePrice = (() => {
-    if (!hasVariations) return Number(producto.precio || 0);
+    if (!hasVariations) {
+      // Para productos sin variaciones, aplicar precio mayorista según cantidad
+      return calcularPrecioMayorista(producto, cantidad);
+    }
     
     if (variationAttributeIds.length === 0) return Number(producto.precio || 0);
     
@@ -315,6 +318,12 @@ export default function ProductDetailPage({ params }) {
     precioBase: effectiveBasePriceWithAltoRelieve,
   });
 
+  // Calcular precio con descuento considerando precios mayoristas
+  const precioFinalConDescuento = obtenerPrecioConDescuento(
+    { ...producto, precio: effectiveBasePriceWithAltoRelieve },
+    cantidad
+  );
+
   const avgRating = reviews.length > 0
     ? reviews.reduce((a, b) => a + b.rating, 0) / reviews.length
     : 0;
@@ -353,7 +362,7 @@ export default function ProductDetailPage({ params }) {
         ...producto,
         cantidad,
         precioBase: effectiveBasePriceWithAltoRelieve,
-        precioUnitario: finalPrice,
+        precioUnitario: precioFinalConDescuento,
         stock: maxCantidad,
         ...(hasVariations && { selectedVariations, variationAttributeIds }),
         ...(producto as any)?.personalizado && { personalizacionValues: normalizePersonalizacionValues() },
@@ -596,7 +605,7 @@ return (
                 )}
 
                 <span className="text-3xl font-extrabold text-white">
-                  ${(finalPrice * cantidad).toFixed(2)}
+                  ${(precioFinalConDescuento * cantidad).toFixed(2)}
                 </span>
 
                 {hasDiscount && (
@@ -605,6 +614,26 @@ return (
                   </span>
                 )}
 
+              </div>
+            )}
+
+            {producto.esMayorista && producto.preciosMayoristas && producto.preciosMayoristas.length > 0 && (
+              <div className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3">
+                <h4 className="text-sm font-semibold text-amber-200 mb-2">Precios por cantidad (Mayorista)</h4>
+                <div className="space-y-1">
+                  {producto.preciosMayoristas
+                    .sort((a, b) => a.minQuantity - b.minQuantity)
+                    .map((rango, idx) => (
+                      <div key={idx} className="flex justify-between text-xs text-white/80">
+                        <span>
+                          {rango.minQuantity} {rango.maxQuantity ? `- ${rango.maxQuantity}` : "+"} unidades:
+                        </span>
+                        <span className="font-semibold text-amber-300">
+                          ${rango.price.toFixed(2)} c/u
+                        </span>
+                      </div>
+                    ))}
+                </div>
               </div>
             )}
 
@@ -806,7 +835,7 @@ return (
                 )}
 
                 <span className="text-3xl font-extrabold text-white">
-                  ${(finalPrice * cantidad).toFixed(2)}
+                  ${(precioFinalConDescuento * cantidad).toFixed(2)}
                 </span>
 
                 {hasDiscount && (

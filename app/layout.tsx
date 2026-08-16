@@ -17,9 +17,9 @@ export const revalidate = 1800;
 // Cambiar cuando tengas el dominio definitivo
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://mueblesymaderas.com";
+  "https://kathegirl.com";
 
-const SITE_NAME = "Muebles & Maderas | Fabricantes de Muebles en Santa Elena, Ecuador";
+const SITE_NAME = "Kathe Girl | Ropa al por Mayor y Detal en Ecuador";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -30,26 +30,26 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "Muebles & Maderas | Fabricantes de Muebles en La Libertad, Santa Elena",
-    template: "%s | Muebles & Maderas",
+    default: "Kathe Girl | Ropa al por Mayor y Detal en Ecuador",
+    template: "%s | Kathe Girl",
   },
 
   description:
-    "Muebles fabricados en 100% madera sólida en La Libertad, Santa Elena. Muebles para hogar, hoteles y proyectos, con envíos a todo el Ecuador.",
+    "Kathe Girl, fabricantes directos de ropa. Ventas al por mayor y detal, con envíos a todo el Ecuador. Te ayudamos a armar tu outfit.",
 
   keywords: [
-    "muebles Santa Elena",
-    "muebles La Libertad Ecuador",
-    "muebles de madera sólida",
-    "fabricantes de muebles Ecuador",
-    "muebles para hogar Ecuador",
-    "muebles para hoteles Ecuador",
-    "muebles a medida Ecuador",
-    "muebles y maderas",
-    "carpintería Santa Elena",
-    "muebles proyectos Ecuador",
-    "envíos muebles Ecuador",
-    "muebles de calidad Ecuador",
+    "ropa al por mayor Ecuador",
+    "ropa al detal Ecuador",
+    "tienda de ropa Ecuador",
+    "fabricantes de ropa Ecuador",
+    "ropa de mujer Ecuador",
+    "moda Ecuador",
+    "Kathe Girl",
+    "ropa mayorista Ecuador",
+    "outfits Ecuador",
+    "envíos ropa Ecuador",
+    "ropa a la moda Ecuador",
+    "grupo de mayoristas ropa Ecuador",
   ],
 
   creator: SITE_NAME,
@@ -72,17 +72,17 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
 
-    title: "Muebles & Maderas | Tu hogar natural",
+    title: "Kathe Girl | Ropa al por Mayor y Detal",
 
     description:
-      "Muebles fabricados en 100% madera sólida en La Libertad, Santa Elena. Muebles para hogar, hoteles y proyectos, con envíos a todo el Ecuador.",
+      "Kathe Girl, fabricantes directos de ropa. Ventas al por mayor y detal, con envíos a todo el Ecuador.",
 
     images: [
       {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Muebles & Maderas - Muebles de madera sólida",
+        alt: "Kathe Girl - Ropa al por Mayor y Detal",
       },
     ],
   },
@@ -90,10 +90,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Muebles & Maderas",
+    title: "Kathe Girl",
 
     description:
-      "Muebles fabricados en 100% madera sólida en La Libertad, Santa Elena, con envíos a todo el Ecuador.",
+      "Fabricantes directos de ropa. Ventas al por mayor y detal, con envíos a todo el Ecuador.",
 
     images: [`${SITE_URL}/twitter-image.jpg`],
   },
@@ -125,7 +125,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
   },
 
-  category: "Muebles y Hogar",
+  category: "Moda y Ropa",
 };
 
 export const viewport: Viewport = {

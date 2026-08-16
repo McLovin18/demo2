@@ -9,6 +9,12 @@ export interface StockVariant {
   variantKey?: string;
 }
 
+export interface WholesalePriceRange {
+  minQuantity: number;
+  maxQuantity?: number; // undefined si es "en adelante"
+  price: number;
+}
+
 export interface Producto {
   id: string;
   nombre?: string;
@@ -32,6 +38,8 @@ export interface Producto {
   destacado?: boolean;
   createdAt?: number | Date;
   fechaCreacion?: any;
+  esMayorista?: boolean;
+  preciosMayoristas?: WholesalePriceRange[];
   [key: string]: any;
 }
 
@@ -59,6 +67,34 @@ export function productoTieneStockDisponible(producto: Producto): boolean {
   }
   if (typeof producto.stock !== "number") return true;
   return producto.stock > 0;
+}
+
+/** Calcular precio mayorista según cantidad */
+export function calcularPrecioMayorista(producto: Producto, cantidad: number): number {
+  if (!producto.esMayorista || !producto.preciosMayoristas || producto.preciosMayoristas.length === 0) {
+    return producto.precio || 0;
+  }
+
+  // Buscar el rango que aplique para la cantidad dada
+  const rangoAplicable = producto.preciosMayoristas
+    .sort((a, b) => a.minQuantity - b.minQuantity) // Ordenar por cantidad mínima
+    .find(rango => 
+      cantidad >= rango.minQuantity && 
+      (rango.maxQuantity === undefined || cantidad <= rango.maxQuantity)
+    );
+
+  return rangoAplicable?.price || producto.precio || 0;
+}
+
+/** Obtener precio con descuento aplicado (considerando precios mayoristas) */
+export function obtenerPrecioConDescuento(producto: Producto, cantidad: number = 1): number {
+  const precioBase = calcularPrecioMayorista(producto, cantidad);
+  
+  if (!producto.descuento || producto.descuento <= 0) {
+    return precioBase;
+  }
+
+  return precioBase * (1 - producto.descuento / 100);
 }
 
 function filtrarProductosConStock(productos: Producto[], opts: { incluirSinStock?: boolean } = {}) {
