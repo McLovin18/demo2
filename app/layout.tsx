@@ -17,9 +17,9 @@ export const revalidate = 1800;
 // Cambiar cuando tengas el dominio definitivo
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://kathegirl.com";
+  "https://dentalsuppliesjcv.com";
 
-const SITE_NAME = "Kathe Girl | Ropa al por Mayor y Detal en Ecuador";
+const SITE_NAME = "Dental Supplies | Productos Dentales Ecuador";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -30,26 +30,22 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kathe Girl | Ropa al por Mayor y Detal en Ecuador",
-    template: "%s | Kathe Girl",
+    default: "Dental Supplies | Productos Dentales en Ecuador",
+    template: "%s | Dental Supplies",
   },
 
   description:
-    "Kathe Girl, fabricantes directos de ropa. Ventas al por mayor y detal, con envíos a todo el Ecuador. Te ayudamos a armar tu outfit.",
+    "Tienda de productos dentales en Ecuador. Atención full time y envíos de productos dentales.",
 
   keywords: [
-    "ropa al por mayor Ecuador",
-    "ropa al detal Ecuador",
-    "tienda de ropa Ecuador",
-    "fabricantes de ropa Ecuador",
-    "ropa de mujer Ecuador",
-    "moda Ecuador",
-    "Kathe Girl",
-    "ropa mayorista Ecuador",
-    "outfits Ecuador",
-    "envíos ropa Ecuador",
-    "ropa a la moda Ecuador",
-    "grupo de mayoristas ropa Ecuador",
+    "productos dentales Ecuador",
+    "insumos dentales Ecuador",
+    "materiales odontológicos Ecuador",
+    "tienda dental Ecuador",
+    "Dental Supplies",
+    "equipos dentales Ecuador",
+    "insumos odontológicos online",
+    "envíos productos dentales Ecuador",
   ],
 
   creator: SITE_NAME,
@@ -72,17 +68,17 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
 
-    title: "Kathe Girl | Ropa al por Mayor y Detal",
+    title: "Dental Supplies | Productos Dentales",
 
     description:
-      "Kathe Girl, fabricantes directos de ropa. Ventas al por mayor y detal, con envíos a todo el Ecuador.",
+      "Tienda de productos dentales en Ecuador. Atención full time y envíos de productos dentales.",
 
     images: [
       {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Kathe Girl - Ropa al por Mayor y Detal",
+        alt: "Dental Supplies - Productos Dentales",
       },
     ],
   },
@@ -90,10 +86,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Kathe Girl",
+    title: "Dental Supplies",
 
     description:
-      "Fabricantes directos de ropa. Ventas al por mayor y detal, con envíos a todo el Ecuador.",
+      "Tienda de productos dentales. Atención full time, envíos disponibles.",
 
     images: [`${SITE_URL}/twitter-image.jpg`],
   },
@@ -125,7 +121,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
   },
 
-  category: "Moda y Ropa",
+  category: "Salud y Odontología",
 };
 
 export const viewport: Viewport = {
@@ -143,7 +139,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={sourceSerif4.variable}>
       <head>
-        {/* Google Analytics - reemplazar con el ID de este cliente */}
+        {/* Google Analytics - reemplazar con el ID de Dental Supplies */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-K1Q0MYDSKF"

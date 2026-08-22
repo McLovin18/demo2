@@ -26,12 +26,12 @@ const IconWhatsApp = () => (
 );
 
 const socialLinks = [
-  { href: "https://www.instagram.com/glowkathe_ec/", label: "Instagram", Icon: IconInstagram },
+  { href: "https://www.instagram.com/dentalsuppliesjcv/", label: "Instagram", Icon: IconInstagram },
 ];
 
 // 👉 Información del negocio
-const WHATSAPP_NUMBER = "593994775249"; // solo números, con código de país, sin '+' ni espacios
-const WHATSAPP_DISPLAY = "+593 99 477 5249"; // como se muestra al usuario
+const WHATSAPP_NUMBER = "593961090028"; // solo números, con código de país, sin '+' ni espacios
+const WHATSAPP_DISPLAY = "+593 96 109 0028"; // como se muestra al usuario
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
             {/* Columna 1: Información de la tienda */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
               <span className="text-base font-bold tracking-wide text-white">
-                Kathe Girl
+                Dental Supplies
               </span>
 
               {instagramEnabled && instagramFollowers !== null && instagramFollowers > 0 && (
@@ -92,11 +92,11 @@ const Footer: React.FC = () => {
               )}
 
               <div className="text-xs text-white/60 mt-1 max-w-[220px]">
-                <p>Fabricantes directos · Mayor y detal</p>
-                <p>Te ayudo a armar tu outfit</p>
+                <p>Tienda de productos dentales</p>
+                <p>Atención Full Time</p>
                 <p className="flex items-center gap-1 justify-center md:justify-start mt-0.5">
                   <IconLocation />
-                  Ecuador · Envíos a todo el país
+                  Envíos de productos dentales
                 </p>
               </div>
             </div>
@@ -116,7 +116,7 @@ const Footer: React.FC = () => {
                     <li key={label}>
                       <a
                         href={href}
-                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#8C5A3C] hover:border-[#8C5A3C]"
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#0EA5A0] hover:border-[#0EA5A0]"
                         target="_blank"
                         rel="noreferrer"
                         title={label}
@@ -142,7 +142,7 @@ const Footer: React.FC = () => {
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-xl text-white/70 hover:text-[#8C5A3C] transition-colors"
+                className="flex items-center gap-2 text-xl text-white/70 hover:text-[#0EA5A0] transition-colors"
                 onClick={() => trackLinkClick().catch(console.error)}
               >
                 <span>{WHATSAPP_DISPLAY}</span>
@@ -160,11 +160,11 @@ const Footer: React.FC = () => {
         {/* Copyright row */}
         <div className={styles.ftCopyRow}>
           <p className="text-xs text-white/50">
-            © {new Date().getFullYear()} Kathe Girl. Todos los derechos reservados.
+            © {new Date().getFullYear()} Dental Supplies. Todos los derechos reservados.
           </p>
           <div className={styles.ftCopyRight}>
             <div className="flex items-center gap-1.5 text-xs text-white/60">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#8C5A3C]" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0EA5A0]" />
               Hecho en Ecuador
             </div>
 
@@ -172,7 +172,7 @@ const Footer: React.FC = () => {
               href="https://www.instagram.com/hector.cobena/"
               target="_blank"
               rel="noreferrer"
-              className="text-xs text-white/50 hover:text-[#8C5A3C] transition-colors"
+              className="text-xs text-white/50 hover:text-[#0EA5A0] transition-colors"
               onClick={() => trackLinkClick().catch(console.error)}
             >
               Desarrollado por Héctor Cobeña

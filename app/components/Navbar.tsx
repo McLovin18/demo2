@@ -207,7 +207,7 @@ return (
                 className="font-heading whitespace-nowrap text-xl sm:text-2xl"
                 style={{ letterSpacing: "0.12em", color: BRAND.white }}
               >
-                GlowKathe <span style={{ color: BRAND.gold }}></span>
+                Dental Supplies
               </span>
             </a>
           </div>
@@ -222,7 +222,7 @@ return (
                 className="font-heading whitespace-nowrap text-xl sm:text-2xl"
                 style={{ letterSpacing: "0.12em", color: BRAND.white }}
               >
-                GlowKathe <span style={{ color: BRAND.gold }}></span>
+                Dental Supplies
               </span>
             </a>
           </div>
@@ -427,7 +427,7 @@ return (
                 className="font-bold text-base"
                 style={{ color: "#ffffff", letterSpacing: "0.08em" }}
               >
-                GlowKathe EC
+                Dental Suplies
               </span>
               <button
                 onClick={() => setMobileOpen(false)}
