@@ -427,7 +427,7 @@ return (
                 className="font-bold text-base"
                 style={{ color: "#ffffff", letterSpacing: "0.08em" }}
               >
-                Dental Suplies
+                Dental Supplies
               </span>
               <button
                 onClick={() => setMobileOpen(false)}
