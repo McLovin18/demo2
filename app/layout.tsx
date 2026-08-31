@@ -17,9 +17,9 @@ export const revalidate = 1800;
 // Cambiar cuando tengas el dominio definitivo
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://dentalsuppliesjcv.com";
+  "https://moonchildec.com";
 
-const SITE_NAME = "Dental Supplies | Productos Dentales Ecuador";
+const SITE_NAME = "Moonchild | Ropa y Accesorios Personalizados";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -30,22 +30,20 @@ const sourceSerif4 = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "Dental Supplies | Productos Dentales en Ecuador",
-    template: "%s | Dental Supplies",
+    default: "Moonchild | Ropa y Accesorios Personalizados",
+    template: "%s | Moonchild",
   },
 
   description:
-    "Tienda de productos dentales en Ecuador. Atención full time y envíos de productos dentales.",
+    "Camisetas, hoodies y accesorios personalizados con diseños de K-pop, anime, series y estilo urbano. Bordados y estampados de alta calidad. Envíos a todo el Ecuador.",
 
   keywords: [
-    "productos dentales Ecuador",
-    "insumos dentales Ecuador",
-    "materiales odontológicos Ecuador",
-    "tienda dental Ecuador",
-    "Dental Supplies",
-    "equipos dentales Ecuador",
-    "insumos odontológicos online",
-    "envíos productos dentales Ecuador",
+    "ropa personalizada Ecuador",
+    "camisetas kpop Ecuador",
+    "hoodies anime Ecuador",
+    "bordados personalizados",
+    "merch kpop Ecuador",
+    "ropa Portoviejo",
   ],
 
   creator: SITE_NAME,
@@ -68,17 +66,17 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
 
-    title: "Dental Supplies | Productos Dentales",
+    title: "Moonchild | Ropa y Accesorios Personalizados",
 
     description:
-      "Tienda de productos dentales en Ecuador. Atención full time y envíos de productos dentales.",
+      "Camisetas, hoodies y accesorios personalizados con diseños de K-pop, anime, series y estilo urbano. Bordados y estampados de alta calidad. Envíos a todo el Ecuador.",
 
     images: [
       {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Dental Supplies - Productos Dentales",
+        alt: "Moonchild | Ropa y Accesorios Personalizados",
       },
     ],
   },
@@ -86,10 +84,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Dental Supplies",
+    title: "Moonchild",
 
     description:
-      "Tienda de productos dentales. Atención full time, envíos disponibles.",
+      "Ropa y accesorios personalizados: K-pop, anime, series y diseños propios. Envíos a todo el Ecuador.",
 
     images: [`${SITE_URL}/twitter-image.jpg`],
   },
@@ -121,7 +119,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
   },
 
-  category: "Salud y Odontología",
+  category: "ropa y accesorios personalizados",
 };
 
 export const viewport: Viewport = {
@@ -139,7 +137,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={sourceSerif4.variable}>
       <head>
-        {/* Google Analytics - reemplazar con el ID de Dental Supplies */}
+        {/* Google Analytics - REEMPLAZAR con el ID de Moonchild */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-K1Q0MYDSKF"

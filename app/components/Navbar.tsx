@@ -203,12 +203,14 @@ return (
               href={user ? "/admin" : "/"}
               className="hidden lg:flex items-center leading-none"
             >
-              <span
-                className="font-heading whitespace-nowrap text-xl sm:text-2xl"
-                style={{ letterSpacing: "0.12em", color: BRAND.white }}
-              >
-                Dental Supplies
-              </span>
+              <Image
+                src="/logo_mc.png"
+                alt="logo"
+                width={190}
+                height={60}
+                priority
+                style={{ height:"65px", width: "auto"}}
+              />
             </a>
           </div>
 
@@ -218,12 +220,14 @@ return (
               href={user ? "/admin" : "/"}
               className="pointer-events-auto flex flex-col items-center leading-none"
             >
-              <span
-                className="font-heading whitespace-nowrap text-xl sm:text-2xl"
-                style={{ letterSpacing: "0.12em", color: BRAND.white }}
-              >
-                Dental Supplies
-              </span>
+              <Image
+                src="/logo_mc.png"
+                alt="Art Design MAKR"
+                width={180}
+                height={62}
+                priority
+                style={{ height: "65px",width: "auto"}}
+              />
             </a>
           </div>
 
@@ -410,7 +414,7 @@ return (
       {mobileOpen && (
         <>
         <div
-          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm mb-12"
+          className="fixed inset-0 z-[99999] bg-black/70 backdrop-blur-sm mb-12"
           onClick={() => setMobileOpen(false)}
         >
           <div
@@ -427,7 +431,7 @@ return (
                 className="font-bold text-base"
                 style={{ color: "#ffffff", letterSpacing: "0.08em" }}
               >
-                Dental Supplies
+                Camiliss
               </span>
               <button
                 onClick={() => setMobileOpen(false)}
