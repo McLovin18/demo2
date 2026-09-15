@@ -437,12 +437,7 @@ return (
               className="flex items-center justify-between px-5 py-4 border-b"
               style={{ borderColor: BRAND.border }}
             >
-              <span
-                className="font-bold text-base"
-                style={{ color: "#ffffff", letterSpacing: "0.08em" }}
-              >
-                Camiliss
-              </span>
+
               <button
                 onClick={() => setMobileOpen(false)}
                 className="p-1.5 rounded-xl transition-colors hover:bg-white/10"
