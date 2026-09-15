@@ -5,6 +5,7 @@ import { obtenerBodegas } from "../lib/bodegas-db";
 import { getSnapshotPricing } from "../lib/pricing";
 import { calcularPrecioMayorista, obtenerPrecioConDescuento } from "../lib/productos-db";
 import { useUser } from "../context/UserContext";
+import { useSiteSettings } from "../context/SiteSettingsContext";
 import BottomBarPublic from "../components/BottomBarPublic";
 import { obtenerAtributos } from "../lib/atributos-db";
 import ModalTransferencia from "../components/ModalTransferencia";
@@ -68,6 +69,7 @@ export default function CartPage() {
   const carrito = carritoRaw as any[];
   const [error, setError] = useState("");
   const { isLogged } = useUser();
+  const { settings } = useSiteSettings();
   const [atributos, setAtributos] = useState<any[]>([]);
   const [showModalTransferencia, setShowModalTransferencia] = useState(false);
   const { trackPurchaseWhatsApp, trackPurchaseTransfer } = useTracking();
@@ -207,7 +209,7 @@ export default function CartPage() {
     // Si se abre después de un await, el navegador lo bloquea sin avisar.
     const whatsappWindow = window.open("", "_blank");
 
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "593983262517";
+    const whatsappNumber = settings.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "593983262517";
     const message = await generateWhatsAppMessage();
     const url = `https://wa.me/${whatsappNumber}?text=${message}`;
 

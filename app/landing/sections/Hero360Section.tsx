@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { LandingSectionStyles, LandingFieldStyle } from "../../lib/landing-types";
+import { useSiteSettings } from "../../context/SiteSettingsContext";
 
 export type Hero360SectionProps = {
   heading?: string;
@@ -26,7 +27,7 @@ export default function Hero360Section({
   primaryButtonText = "ENSAMBLES",
   secondaryButtonText = "ASESORAMIENTO",
   primaryButtonLink = "/products-by-category?cat=1775935501638&sub=1775935523162",
-  secondaryButtonLink = "https://wa.me/593962873167?text=Hola%20quiero%20asesoramiento%20para%20mi%20PC",
+  secondaryButtonLink,
   backgroundImage = "/banner_img.jpeg",
   images = [
     "/img_1.png",
@@ -38,9 +39,16 @@ export default function Hero360Section({
   interval = 2000,
   onPrimaryButtonClick,
 }: Hero360SectionProps) {
+  const { settings } = useSiteSettings();
   const [isDark, setIsDark] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [bgImage, setBgImage] = useState("/banner_img.jpeg");
+
+  // Usar el número de WhatsApp configurado si no se proporciona un link específico
+  const whatsappLink = secondaryButtonLink || (settings.whatsappNumber 
+    ? `https://wa.me/${settings.whatsappNumber}?text=Hola%20quiero%20asesoramiento%20para%20mi%20PC`
+    : "https://wa.me/593962873167?text=Hola%20quiero%20asesoramiento%20para%20mi%20PC"
+  );
 
   useEffect(() => {
     // Detectar si es dispositivo móvil

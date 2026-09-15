@@ -7,6 +7,242 @@ import { uploadImageAndGetUrl } from "../../lib/upload-image";
 import { useSiteSettings } from "../../context/SiteSettingsContext";
 import { getInstagramConfig } from "../../lib/instagram-db";
 
+// Componente para configuración del negocio
+function BusinessSettings() {
+  const { settings } = useSiteSettings();
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  
+  const [formData, setFormData] = useState({
+    businessName: "",
+    whatsappNumber: "",
+    phoneNumber: "",
+    instagramUrl: "",
+    tiktokUrl: "",
+    facebookUrl: "",
+    businessDescription: "",
+    businessAddress: "",
+  });
+
+  useEffect(() => {
+    setFormData({
+      businessName: settings.businessName || "",
+      whatsappNumber: settings.whatsappNumber || "",
+      phoneNumber: settings.phoneNumber || "",
+      instagramUrl: settings.instagramUrl || "",
+      tiktokUrl: settings.tiktokUrl || "",
+      facebookUrl: settings.facebookUrl || "",
+      businessDescription: settings.businessDescription || "",
+      businessAddress: settings.businessAddress || "",
+    });
+  }, [settings]);
+
+  useEffect(() => {
+    if (!logoFile) {
+      setLogoPreview(null);
+      return;
+    }
+    const url = URL.createObjectURL(logoFile);
+    setLogoPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [logoFile]);
+
+  const handleSave = async () => {
+    setMessage("");
+    setLoading(true);
+    try {
+      let logoUrl = settings.logoUrl;
+      
+      if (logoFile) {
+        const path = `landing_page/logo/logo_${Date.now()}.${logoFile.name.split('.').pop()}`;
+        logoUrl = await uploadImageAndGetUrl(logoFile, path);
+      }
+
+      await setDoc(
+        doc(db, "landingPage", "main"),
+        {
+          ...formData,
+          logoUrl,
+        },
+        { merge: true }
+      );
+      setMessage("Información del negocio guardada correctamente.");
+      setLogoFile(null);
+      setLogoPreview(null);
+    } catch (e: any) {
+      setMessage("Error: " + (e?.message || "No se pudo guardar la información"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-slate-600">
+        Configura la información básica de tu negocio que aparecerá en todo el sitio.
+      </p>
+
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-4">
+        {/* Logo */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Logo del negocio</label>
+          {(settings.logoUrl || logoPreview) && (
+            <div className="mb-3">
+              <div className="relative w-32 h-32 rounded-xl overflow-hidden bg-white border border-slate-200">
+                <img 
+                  src={logoPreview || settings.logoUrl} 
+                  alt="Logo" 
+                  className="w-full h-full object-contain p-2" 
+                />
+              </div>
+            </div>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            disabled={loading}
+            onChange={(e) => setLogoFile(e.target.files?.[0] || null)}
+            className="block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base file:mr-4 file:rounded-full file:border-0 file:bg-rose-500 file:px-4 file:py-2 file:text-white file:font-semibold disabled:opacity-60"
+          />
+        </div>
+
+        {/* Nombre del negocio */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Nombre del negocio</label>
+          <input
+            type="text"
+            name="businessName"
+            value={formData.businessName}
+            onChange={handleChange}
+            disabled={loading}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+            placeholder="Ej: Mi Tienda"
+          />
+        </div>
+
+        {/* Número de WhatsApp */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Número de WhatsApp</label>
+          <input
+            type="text"
+            name="whatsappNumber"
+            value={formData.whatsappNumber}
+            onChange={handleChange}
+            disabled={loading}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+            placeholder="Ej: 593994775249"
+          />
+          <p className="text-xs text-slate-500 mt-1">Sin el símbolo +, solo números</p>
+        </div>
+
+        {/* Número de teléfono */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Número de teléfono</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            disabled={loading}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+            placeholder="Ej: 0222334455"
+          />
+        </div>
+
+        {/* Redes sociales */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Instagram</label>
+            <input
+              type="url"
+              name="instagramUrl"
+              value={formData.instagramUrl}
+              onChange={handleChange}
+              disabled={loading}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+              placeholder="https://instagram.com/..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">TikTok</label>
+            <input
+              type="url"
+              name="tiktokUrl"
+              value={formData.tiktokUrl}
+              onChange={handleChange}
+              disabled={loading}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+              placeholder="https://tiktok.com/..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Facebook</label>
+            <input
+              type="url"
+              name="facebookUrl"
+              value={formData.facebookUrl}
+              onChange={handleChange}
+              disabled={loading}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+              placeholder="https://facebook.com/..."
+            />
+          </div>
+        </div>
+
+        {/* Descripción del negocio */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Descripción del negocio</label>
+          <textarea
+            name="businessDescription"
+            value={formData.businessDescription}
+            onChange={handleChange}
+            disabled={loading}
+            rows={3}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60 resize-none"
+            placeholder="Breve descripción de tu negocio..."
+          />
+        </div>
+
+        {/* Dirección */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">Dirección física</label>
+          <input
+            type="text"
+            name="businessAddress"
+            value={formData.businessAddress}
+            onChange={handleChange}
+            disabled={loading}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base disabled:opacity-60"
+            placeholder="Ej: Av. Principal 123, Ciudad"
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={handleSave}
+          disabled={loading}
+          className="bg-rose-600 text-white px-6 py-3 rounded-xl font-semibold disabled:opacity-60 w-full md:w-auto"
+        >
+          {loading ? "Guardando..." : "Guardar información"}
+        </button>
+
+        {message && (
+          <div className={`text-sm ${message.startsWith("Error") ? "text-red-600" : "text-green-600"}`}>
+            {message}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function ConfigPage() {
   const colors = {
     bg: "#f8fafc",
@@ -17,8 +253,15 @@ export default function ConfigPage() {
   };
 
   return (
-    <div className="px-6 py-6 sm:py-12 max-w-xl mx-auto">
+    <div className="px-6 py-6 sm:py-12 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Configuración</h1>
+      
+      {/* Información del negocio */}
+      <div className="mb-8">
+        <h2 className="text-lg font-semibold mb-2">Información del negocio</h2>
+        <BusinessSettings />
+      </div>
+
       <div className="mb-8">
         <h2 className="text-lg font-semibold mb-2">Tema fijo</h2>
         <p className="text-sm text-slate-600 mb-4">
