@@ -12,8 +12,8 @@ import {
 } from "../lib/categorias-db";
 import { obtenerProductos } from "../lib/productos-db";
 import { useUser } from "../context/UserContext";
-import { productMatches } from "../lib/search-utils";
 import { useSiteSettings } from "../context/SiteSettingsContext";
+import { productMatches } from "../lib/search-utils";
 
 // ─────────────────────────────────────────────
 // Paleta de marca — Tienda Virtual
@@ -205,18 +205,14 @@ return (
               href={user ? "/admin" : "/"}
               className="hidden lg:flex items-center leading-none"
             >
-              {settings.logoUrl ? (
-                <Image
-                  src={settings.logoUrl}
-                  alt={settings.businessName || "Logo"}
-                  width={190}
-                  height={60}
-                  priority
-                  style={{ height:"65px", width: "auto"}}
-                />
-              ) : (
-                <span className="text-xl font-bold">{settings.businessName || "Mi Tienda"}</span>
-              )}
+              <Image
+                src={settings.logoUrl || "/logo_mu.png"}
+                alt="logo"
+                width={190}
+                height={60}
+                priority
+                style={{ height:"65px", width: "auto"}}
+              />
             </a>
           </div>
 
@@ -226,18 +222,14 @@ return (
               href={user ? "/admin" : "/"}
               className="pointer-events-auto flex flex-col items-center leading-none"
             >
-              {settings.logoUrl ? (
-                <Image
-                  src={settings.logoUrl}
-                  alt={settings.businessName || "Logo"}
-                  width={180}
-                  height={62}
-                  priority
-                  style={{ height: "65px",width: "auto"}}
-                />
-              ) : (
-                <span className="text-lg font-bold">{settings.businessName || "Mi Tienda"}</span>
-              )}
+              <Image
+                src={settings.logoUrl || "/logo_mu.png"}
+                alt="Logo"
+                width={180}
+                height={62}
+                priority
+                style={{ height: "65px",width: "auto"}}
+              />
             </a>
           </div>
 
@@ -424,7 +416,7 @@ return (
       {mobileOpen && (
         <>
         <div
-          className="fixed inset-0 z-[99999] bg-black/70 backdrop-blur-sm mb-12"
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm mb-12"
           onClick={() => setMobileOpen(false)}
         >
           <div
@@ -437,7 +429,6 @@ return (
               className="flex items-center justify-between px-5 py-4 border-b"
               style={{ borderColor: BRAND.border }}
             >
-
               <button
                 onClick={() => setMobileOpen(false)}
                 className="p-1.5 rounded-xl transition-colors hover:bg-white/10"

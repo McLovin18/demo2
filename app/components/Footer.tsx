@@ -2,9 +2,9 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
+import { useSiteSettings } from "../context/SiteSettingsContext";
 import WhatsAppFloatingButton from "./WhatsAppFloatingButton";
 import styles from "./Footer.module.css";
-import { useSiteSettings } from "../context/SiteSettingsContext";
 
 const IconInstagram = () => (
   <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
@@ -40,22 +40,12 @@ const Footer: React.FC = () => {
   const pathname = usePathname();
   const { settings } = useSiteSettings();
 
-  // Generar links de redes sociales dinámicamente
+  // Generar socialLinks dinámicamente basado en configuración
   const socialLinks = [
     ...(settings.instagramUrl ? [{ href: settings.instagramUrl, label: "Instagram", Icon: IconInstagram }] : []),
     ...(settings.tiktokUrl ? [{ href: settings.tiktokUrl, label: "TikTok", Icon: IconTikTok }] : []),
     ...(settings.facebookUrl ? [{ href: settings.facebookUrl, label: "Facebook", Icon: IconFacebook }] : []),
   ];
-
-  // Formatear número de WhatsApp para mostrar
-  const formatWhatsAppDisplay = (number: string) => {
-    if (!number) return "";
-    const cleaned = number.replace(/\D/g, '');
-    if (cleaned.length < 10) return number;
-    return `+${cleaned.slice(0, 3)} ${cleaned.slice(3, 5)} ${cleaned.slice(5, 7)} ${cleaned.slice(7)}`;
-  };
-
-  const whatsappDisplay = formatWhatsAppDisplay(settings.whatsappNumber);
 
   const showWhatsAppFloating = pathname && !pathname.startsWith("/admin");
 
@@ -74,56 +64,49 @@ const Footer: React.FC = () => {
             {/* Columna 1: Información de la tienda */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
               <span className="text-base font-bold tracking-wide text-white">
-                {settings.businessName || "Mi Tienda"}
+                {settings.businessName}
               </span>
 
               <div className="text-xs text-white/60 mt-1 max-w-[220px]">
-                <p>{settings.businessDescription || "Descripción del negocio"}</p>
-                {settings.businessAddress && (
-                  <p className="flex items-center gap-1 justify-center md:justify-start mt-0.5">
-                    <IconLocation />
-                    {settings.businessAddress}
-                  </p>
-                )}
+                <p>{settings.businessDescription}</p>
+                <p className="flex items-center gap-1 justify-center md:justify-start mt-0.5">
+                  <IconLocation />
+                  {settings.businessAddress}
+                </p>
               </div>
             </div>
 
             {/* Columna 2: Redes sociales */}
             <div className="w-full flex justify-center">
-              <ul className={styles.ftSocials}>
-                {socialLinks.map(({ href, label, Icon }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#8B7CD8] hover:border-[#8B7CD8]"
-                      target="_blank"
-                      rel="noreferrer"
-                      title={label}
-                    >
-                      <Icon />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div className="w-full max-w-md flex items-center justify-center gap-3">
+                <ul className={styles.ftSocials}>
+                  {socialLinks.map(({ href, label, Icon }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white transition-colors hover:bg-[#8B5CF6] hover:border-[#8B5CF6]"
+                        target="_blank"
+                        rel="noreferrer"
+                        title={label}
+                      >
+                        <Icon />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             {/* Columna 3: Contacto */}
             <div className="flex flex-col items-center md:items-end gap-2.5">
-              {settings.whatsappNumber && (
-                <a
-                  href={`https://wa.me/${settings.whatsappNumber}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 text-xl text-white/70 hover:text-[#8B7CD8] transition-colors"
-                >
-                  <span>{whatsappDisplay}</span>
-                  <IconWhatsApp />
-                </a>
-              )}
-              {settings.phoneNumber && (
-                <div className="flex items-center gap-2 text-sm text-white/60">
-                  <span>{settings.phoneNumber}</span>
-                </div>
-              )}
+              <a
+                href={`https://wa.me/${settings.whatsappNumber}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-xl text-white/70 hover:text-[#8B5CF6] transition-colors"
+              >
+                <span>{settings.whatsappDisplay}</span>
+                <IconWhatsApp />
+              </a>
             </div>
 
           </div>
@@ -135,8 +118,23 @@ const Footer: React.FC = () => {
         {/* Copyright row */}
         <div className={styles.ftCopyRow}>
           <p className="text-xs text-white/50">
-            © {new Date().getFullYear()} {settings.businessName || "Mi Tienda"}. Todos los derechos reservados.
+            © {new Date().getFullYear()} {settings.businessName}. Todos los derechos reservados.
           </p>
+          <div className={styles.ftCopyRight}>
+            <div className="flex items-center gap-1.5 text-xs text-white/60">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
+              Hecho en Ecuador
+            </div>
+
+            <a
+              href="https://www.instagram.com/hector.cobena/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-xs text-white/50 hover:text-[#8B5CF6] transition-colors"
+            >
+              Desarrollado por Héctor Cobeña
+            </a>
+          </div>
         </div>
 
       </footer>

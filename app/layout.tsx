@@ -8,6 +8,7 @@ import { OnboardingProvider } from "./context/OnboardingContext";
 import { ToastProvider } from "./context/ToastContext";
 import LayoutContentClient from "./components/LayoutContentClient";
 import { StructuredData } from "./components/StructuredData";
+import { getSiteSettings } from "./lib/site-settings-db";
 import type { Metadata, Viewport } from "next";
 import { Source_Serif_4 } from "next/font/google";
 
@@ -17,9 +18,7 @@ export const revalidate = 1800;
 // Cambiar cuando tengas el dominio definitivo
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://moonchildec.com";
-
-const SITE_NAME = "Moonchild | Ropa y Accesorios Personalizados";
+  "https://calikidsmobiliario.com";
 
 const sourceSerif4 = Source_Serif_4({
   subsets: ["latin"],
@@ -28,99 +27,104 @@ const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif-4",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Moonchild | Ropa y Accesorios Personalizados",
-    template: "%s | Moonchild",
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const SITE_NAME = settings.businessName || "CALI KIDS";
+  const keywordsArray = settings.seoKeywords.split(',').map(k => k.trim()).filter(Boolean);
 
-  description:
-    "Camisetas, hoodies y accesorios personalizados con diseños de K-pop, anime, series y estilo urbano. Bordados y estampados de alta calidad. Envíos a todo el Ecuador.",
+  return {
+    title: {
+      default: settings.seoTitle,
+      template: `%s | ${SITE_NAME}`,
+    },
 
-  keywords: [
-    "ropa personalizada Ecuador",
-    "camisetas kpop Ecuador",
-    "hoodies anime Ecuador",
-    "bordados personalizados",
-    "merch kpop Ecuador",
-    "ropa Portoviejo",
-  ],
+    description: settings.seoDescription,
 
-  creator: SITE_NAME,
+    keywords: keywordsArray,
 
-  publisher: SITE_NAME,
+    creator: SITE_NAME,
 
-  metadataBase: new URL(SITE_URL),
+    publisher: SITE_NAME,
 
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
+    metadataBase: new URL(SITE_URL),
 
-  manifest: "/site.webmanifest",
+    icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon-16x16.png",
+      apple: "/apple-touch-icon.png",
+    },
 
-  openGraph: {
-    type: "website",
-    locale: "es_EC",
-    url: SITE_URL,
-    siteName: SITE_NAME,
+    manifest: "/site.webmanifest",
 
-    title: "Moonchild | Ropa y Accesorios Personalizados",
+    openGraph: {
+      type: "website",
+      locale: "es_EC",
+      url: SITE_URL,
+      siteName: SITE_NAME,
 
-    description:
-      "Camisetas, hoodies y accesorios personalizados con diseños de K-pop, anime, series y estilo urbano. Bordados y estampados de alta calidad. Envíos a todo el Ecuador.",
+      title: settings.seoTitle,
 
-    images: [
-      {
-        url: `${SITE_URL}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Moonchild | Ropa y Accesorios Personalizados",
-      },
-    ],
-  },
+      description: settings.seoDescription,
 
-  twitter: {
-    card: "summary_large_image",
+      images: settings.seoOgImage
+        ? [
+            {
+              url: settings.seoOgImage,
+              width: 1200,
+              height: 630,
+              alt: settings.seoTitle,
+            },
+          ]
+        : [
+            {
+              url: `${SITE_URL}/og-image.jpg`,
+              width: 1200,
+              height: 630,
+              alt: settings.seoTitle,
+            },
+          ],
+    },
 
-    title: "Moonchild",
+    twitter: {
+      card: "summary_large_image",
 
-    description:
-      "Ropa y accesorios personalizados: K-pop, anime, series y diseños propios. Envíos a todo el Ecuador.",
+      title: SITE_NAME,
 
-    images: [`${SITE_URL}/twitter-image.jpg`],
-  },
+      description: settings.seoDescription,
 
-  alternates: {
-    canonical: SITE_URL,
-  },
+      images: settings.seoOgImage ? [settings.seoOgImage] : [`${SITE_URL}/twitter-image.jpg`],
+    },
 
-  robots: {
-    index: true,
-    follow: true,
+    alternates: {
+      canonical: SITE_URL,
+    },
 
-    googleBot: {
+    robots: {
       index: true,
       follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
+
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-snippet": -1,
+        "max-image-preview": "large",
+        "max-video-preview": -1,
+      },
     },
-  },
 
-  verification: {
-    google: "", // colocar Search Console cuando el dominio esté activo
-  },
+    verification: {
+      google: "", // colocar Search Console cuando el dominio esté activo
+    },
 
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: SITE_NAME,
-  },
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: SITE_NAME,
+    },
 
-  category: "ropa y accesorios personalizados",
-};
+    category: "muebles infantiles",
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -137,7 +141,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={sourceSerif4.variable}>
       <head>
-        {/* Google Analytics - REEMPLAZAR con el ID de Moonchild */}
+        {/* Google Analytics */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-K1Q0MYDSKF"
